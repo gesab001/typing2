@@ -23,7 +23,7 @@
              width: '50px',
              height: '50px',
              borderRadius: '50px',
-             lineHeight: '10px',
+             lineHeight: '10px', 
              position: 'fixed',
              textAlign: 'center',
              left: (Math.floor(Math.random() * 90)).toString() + '%',
@@ -44,20 +44,20 @@
         window.addEventListener('keyup', (e) => {
             if(this.letter==e.key & this.bottom>-10){
                   this.popBallon();
+                  this.addScore();
                  
 
 
-            }else{
+            }else{ 
+                 this.score = 0;
                  this.showscore = false;
                  this.playBallonPop = false;
+                 
             }
 
         });
        this.startInterval();
-       this.score = localStorage.getItem("score");
-       if (this.score==null){
-             this.score = 0;
-       }
+ 
     },
     methods: {
         startInterval() {
@@ -79,11 +79,18 @@
             this.styleObject.left = (Math.floor(Math.random() * 90)).toString() + '%';
             this.paintBallon();
 
+           
+            
+        },
+        addScore(){
             this.score = localStorage.getItem("score");
             this.score++; 
             this.showscore = true;
             localStorage.setItem("score", this.score); 
-            
+        },
+        initializeScore(){
+           this.score = 0;
+           localStorage.setItem("score", 0);
         }
     }
   

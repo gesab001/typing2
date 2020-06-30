@@ -1,9 +1,9 @@
 <template lang="html">
 
   <section class="letter-input">
-    <h1>letter-input Component</h1>
+    <h1>Enter characters to practice</h1>
 
-    <input @keyup.enter="submit">
+    <input @keyup.enter="submit"> <button @click="submit">start</button>
 
 
   </section>

@@ -1,7 +1,11 @@
 <template lang="html">
 
   <section class="background-music">
-    <h1>background-music Component</h1>
+      <audio autoplay>
+      <source src="horse.ogg" type="audio/ogg">
+      <source src="https://raw.githubusercontent.com/gesab001/assets/master/music/tell-it-on-the-mountain.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio> 
   </section>
 
 </template>
