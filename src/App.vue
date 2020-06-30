@@ -42,7 +42,7 @@ export default {
     
     },
     createNewGame() {
-       window.location.reload()
+         window.location.reload()
          this.showinput = true
          this.fly = false
          this.newgame = false,

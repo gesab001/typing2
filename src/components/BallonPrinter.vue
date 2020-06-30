@@ -1,9 +1,9 @@
 <template lang="html">
 
   <section class="letter-input">
-    <h1>Enter characters to practice</h1>
-
-    <input @keyup.enter="submit"> <button @click="submit">start</button>
+    <h1>Welcome to Typing Game</h1>
+    <input type="text" placeholder="enter characters to practice" @keyup.enter="startGame" @keyup="displayWord"> <button @click="startGame">start</button>
+    <p>{{letters}}</p>
 
 
   </section>
@@ -20,18 +20,27 @@
     },
     data () {
       return {
-          letters: 'Jesus',
+          letters: '',
 
 
       }
     },
     methods: {
-      submit: function (event) {
+      displayWord: function (event) {
         // now we have access to the native event
         event.preventDefault()
         this.letters = event.target.value;
-        this.$emit('childToParent', this.letters)
+        //this.$emit('childToParent', this.letters)
 
+      },
+     startGame: function (event) {
+        // now we have access to the native event
+        event.preventDefault()
+        if(this.letters==''){
+           alert("please enter characters to practice") 
+        }else{
+           this.$emit('childToParent', this.letters)
+        }
       }
     },
     computed: {
