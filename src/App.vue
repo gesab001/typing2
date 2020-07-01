@@ -1,5 +1,6 @@
 <template  lang="html">
    <div >
+      <h1>HIGHEST SCORE: {{highestScore}}</h1>
       <BackgroundMusic v-if="playbackgroundmusic"/>
 
       <BallonPrinter  v-if="showinput" v-on:childToParent="onReceivingMessage"/>
@@ -29,8 +30,13 @@ export default {
        showinput: true,
        newgame: false,
        showscoreboard: false,
-       playbackgroundmusic: false
+       playbackgroundmusic: false,
+       highestScore: 0
      }
+  },
+  created() {
+
+     this.highestScore = this.getHighestScore();
   },
   methods: {
     onReceivingMessage(value) {
@@ -51,7 +57,16 @@ export default {
          this.newgame = false,
          this.showscoreboard = false
          this.playbackgroundmusic = false
-      }
+      },
+   getScoreTable(){
+           var jsondata = JSON.parse(localStorage.getItem("scoretable"));
+           return jsondata.scores;
+        },
+   getHighestScore(){
+           var scoreList = this.getScoreTable();
+           var highestScore = Math.max(...scoreList)
+           return highestScore;
+   }
   }
 }
 </script>

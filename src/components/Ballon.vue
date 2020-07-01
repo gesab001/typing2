@@ -4,7 +4,7 @@
     <SoundEffects id="popsound" v-if="playBallonPop"/>
     <div class="snackbar" v-if="showscore">{{score}}</div>
     <div v-bind:style="[styleObject]"> <h1>{{letter}}</h1></div>
-
+    <p>{{top}}</p>
   </section>
 
 </template>
@@ -31,6 +31,7 @@
              bottom: this.bottom
               
         },
+        top: 10,
         bottom: 0,
         speed: 100,
         showscore: false,
@@ -50,6 +51,7 @@
                   clearInterval(this.interval);
                   this.speed = this.speed - 5;
                   this.startInterval();
+
                  
 
 
@@ -70,10 +72,21 @@
             this.interval = setInterval(() => {
                 this.bottom++;
                 this.styleObject.bottom = this.bottom + 'px';
-              
+                this.top = this.bottom;
+                if (this.bottom>50){this.suspendBallon();}
             }, this.speed)
         },
-
+        suspendBallon(){
+                  clearInterval(this.interval);
+                  this.score = localStorage.getItem("score");
+                  this.saveScore(this.score);
+                  var alertMessage = "game over.  you scored "+ this.score + " points";
+                  if(this.isHighestScore){
+                     alertMessage = "game over. congratulations! you got the highest score";
+                  }
+                  alert(alertMessage);                  
+                  window.location.reload();
+        },
         paintBallon(){
            var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
            this.styleObject.background = colors[(Math.floor(Math.random() * colors.length))];  
@@ -84,9 +97,6 @@
             this.styleObject.bottom = this.bottom + 'px';
             this.styleObject.left = (Math.floor(Math.random() * 90)).toString() + '%';
             this.paintBallon();
-
-           
-            
         },
         addScore(){
             this.score = localStorage.getItem("score");
@@ -97,6 +107,25 @@
         initializeScore(){
            this.score = 0;
            localStorage.setItem("score", 0);
+        },
+        saveScore(score){
+           var jsondata = JSON.parse(localStorage.getItem("scoretable"));
+           if (jsondata==null){
+               jsondata = {"scores": []};
+           } 
+           jsondata.scores.push(score);
+           localStorage.setItem("scoretable", JSON.stringify(jsondata));
+        },
+        getScoreTable(){
+           var jsondata = JSON.parse(localStorage.getItem("scoretable"));
+           return jsondata.scores;
+        },
+        isHighestScore(){
+           var scoreList = this.getScoreTable();
+           var highestScore = Math.max(...scoreList)
+           return Boolean(parseInt(this.score) == parseInt(highestScore));
+
+           
         }
     },
     computed: {
