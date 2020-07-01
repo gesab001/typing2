@@ -4,7 +4,7 @@
     <SoundEffects id="popsound" v-if="playBallonPop"/>
     <div class="snackbar" v-if="showscore">{{score}}</div>
     <div v-bind:style="[styleObject]"> <h1>{{letter}}</h1></div>
-    <p>{{top}}</p>
+    
   </section>
 
 </template>
@@ -37,7 +37,8 @@
         showscore: false,
         score: 0,
         playBallonPop: false,
-        interval: null
+        interval: null,
+        ceiling: 600
 
       }
     },
@@ -73,7 +74,7 @@
                 this.bottom++;
                 this.styleObject.bottom = this.bottom + 'px';
                 this.top = this.bottom;
-                if (this.bottom>50){this.suspendBallon();}
+                if (this.bottom>this.ceiling){this.suspendBallon();}
             }, this.speed)
         },
         suspendBallon(){
@@ -81,7 +82,7 @@
                   this.score = localStorage.getItem("score");
                   this.saveScore(this.score);
                   var alertMessage = "game over.  you scored "+ this.score + " points";
-                  if(this.isHighestScore){
+                  if(this.isHighestScore(this.score)){
                      alertMessage = "game over. congratulations! you got the highest score";
                   }
                   alert(alertMessage);                  
@@ -120,13 +121,12 @@
            var jsondata = JSON.parse(localStorage.getItem("scoretable"));
            return jsondata.scores;
         },
-        isHighestScore(){
+        isHighestScore(score){
            var scoreList = this.getScoreTable();
            var highestScore = Math.max(...scoreList)
-           return Boolean(parseInt(this.score) == parseInt(highestScore));
-
-           
-        }
+           return Boolean(parseInt(score) == parseInt(highestScore)); 
+        },
+        setCeiling(){}
     },
     computed: {
 
