@@ -35,16 +35,21 @@
         speed: 100,
         showscore: false,
         score: 0,
-        playBallonPop: false
+        playBallonPop: false,
+        interval: null
 
       }
     },
     created() {
         this.paintBallon();
+        this.startInterval();
         window.addEventListener('keyup', (e) => {
             if(this.letter==e.key & this.bottom>-10){
                   this.popBallon();
                   this.addScore();
+                  clearInterval(this.interval);
+                  this.speed = this.speed - 5;
+                  this.startInterval();
                  
 
 
@@ -56,18 +61,19 @@
             }
 
         });
-       this.startInterval();
+
+       
  
     },
     methods: {
         startInterval() {
-            setInterval(() => {
+            this.interval = setInterval(() => {
                 this.bottom++;
                 this.styleObject.bottom = this.bottom + 'px';
-                this.speed = this.speed - 100;
               
             }, this.speed)
         },
+
         paintBallon(){
            var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
            this.styleObject.background = colors[(Math.floor(Math.random() * colors.length))];  
@@ -92,6 +98,9 @@
            this.score = 0;
            localStorage.setItem("score", 0);
         }
+    },
+    computed: {
+
     }
   
 }

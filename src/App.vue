@@ -1,7 +1,9 @@
 <template  lang="html">
    <div >
       <BackgroundMusic v-if="playbackgroundmusic"/>
-      <BallonPrinter v-if="showinput" v-on:childToParent="onReceivingMessage"/>
+
+      <BallonPrinter  v-if="showinput" v-on:childToParent="onReceivingMessage"/>
+
       <BallonProducer  v-if="fly" :message="letters"/>
       <button v-if="newgame" v-on:click="createNewGame" >new word</button>
    </div>
@@ -39,6 +41,7 @@ export default {
        localStorage.setItem("score", 0)
        this.showscoreboard = true
        this.playbackgroundmusic = true
+       
     
     },
     createNewGame() {
@@ -61,6 +64,34 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#startgame{
+    position:fixed;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    line-height: 100%;
+    width: 100%;
+    height: 100%;
+    background: orange;
+    
+
+
+}
+.vertical-center {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+  border: 3px solid green;
+}
+.horizontal-center {
+  margin-left: 35%;
+  border: 3px solid #73AD21;
+  padding: 10px;
 }
 
 </style>
