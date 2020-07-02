@@ -1,6 +1,7 @@
 <template  lang="html">
    <div >
       <h1>HIGHEST SCORE: {{highestScore}}</h1>
+      <button v-if="resetScoreButton" v-on:click="resetScore">Reset score</button>
       <BackgroundMusic v-if="playbackgroundmusic"/>
 
       <BallonPrinter  v-if="showinput" v-on:childToParent="onReceivingMessage"/>
@@ -31,7 +32,8 @@ export default {
        newgame: false,
        showscoreboard: false,
        playbackgroundmusic: false,
-       highestScore: 0
+       highestScore: 0,
+       resetScoreButton: true,
      }
   },
   created() {
@@ -46,7 +48,8 @@ export default {
        this.newgame = true
        localStorage.setItem("score", 0)
        this.showscoreboard = true
-       this.playbackgroundmusic = true
+       this.playbackgroundmusic = true,
+       this.resetScorebutton = false
        
     
     },
@@ -56,7 +59,8 @@ export default {
          this.fly = false
          this.newgame = false,
          this.showscoreboard = false
-         this.playbackgroundmusic = false
+         this.playbackgroundmusic = false,
+         this.resetScorebutton = true
       },
    getScoreTable(){
            var jsondata = JSON.parse(localStorage.getItem("scoretable"));
@@ -66,6 +70,11 @@ export default {
            var scoreList = this.getScoreTable();
            var highestScore = Math.max(...scoreList)
            return highestScore;
+   },
+   resetScore(){
+      this.highestScore = 0;
+      var scoretable = {"scores": [0]};
+      localStorage.setItem("scoretable", JSON.stringify(scoretable)); 
    }
   }
 }
