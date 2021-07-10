@@ -1,5 +1,8 @@
 <template  lang="html">
    <div >
+      <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/keybricks5.htm?keys=abcdefghijklmnopqrstuvwxyz" target="_blank">keybricks</a><span>  |  </span>
+            <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/keytower/index2.html?keys=abcdefghijklmnopqrstuvwxyz" target="_blank">keytower</a><span>  |  </span>
+                  <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/typing-racer/car.htm" target="_blank">type racer  </a>
       <h1>HIGHEST SCORE: {{highestScore}}</h1>
       <button v-if="resetScoreButton" v-on:click="resetScore">Reset score</button>
       <BackgroundMusic v-if="playbackgroundmusic"/>
