@@ -2,14 +2,18 @@
    <div >
       <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/keybricks5.htm?keys=abcdefghijklmnopqrstuvwxyz" target="_blank">keybricks</a><span>  |  </span>
             <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/keytower/index2.html?keys=abcdefghijklmnopqrstuvwxyz" target="_blank">keytower</a><span>  |  </span>
-                  <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/typing-racer/car.htm" target="_blank">type racer  </a>
+                  <a href="https://www.typinggames.zone/web/resources/templates/frontend/typingmaster/typing-racer/car.htm" target="_blank">type racer  </a><span>  |  </span>
+                  <a href="https://gesab001.github.io/bible">Bible</a><span>  |  </span>
+                  <a href="https://gesab001.github.io/prayter-reactjs">Pray</a>
       <h1>HIGHEST SCORE: {{highestScore}}</h1>
       <button v-if="resetScoreButton" v-on:click="resetScore">Reset score</button>
+
       <BackgroundMusic v-if="playbackgroundmusic"/>
 
       <BallonPrinter  v-if="showinput" v-on:childToParent="onReceivingMessage"/>
 
       <BallonProducer  v-if="fly" :message="letters"/>
+            <ScoreBoard v-if="fly"/>
       <button v-if="newgame" v-on:click="createNewGame" >new word</button>
    </div>
 
@@ -20,12 +24,14 @@
 import BallonPrinter from './components/BallonPrinter.vue'
 import BallonProducer from './components/BallonProducer.vue'
 import BackgroundMusic from './components/BackgroundMusic.vue'
+import ScoreBoard from './components/ScoreBoard.vue'
 export default {
   name: 'App',
   components: {
     BallonPrinter,
     BallonProducer,
-    BackgroundMusic
+    BackgroundMusic,
+    ScoreBoard
   },
   data () {
      return {

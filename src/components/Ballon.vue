@@ -2,7 +2,7 @@
 
   <section >
     <SoundEffects id="popsound" v-if="playBallonPop"/>
-    <div class="snackbar" v-if="showscore">{{score}}</div>
+    <div class="snackbar" id="scoreDisplay" v-if="showscore">{{score}}</div>
     <div v-bind:style="[styleObject]"> <h1>{{letter}}</h1></div>
     
   </section>
@@ -58,7 +58,7 @@
 
             }else{ 
                  this.score = 0;
-                 this.showscore = false;
+                 this.showscore =false;
                  this.playBallonPop = false;
                  
             }
@@ -102,8 +102,15 @@
         addScore(){
             this.score = localStorage.getItem("score");
             this.score++; 
-            this.showscore = true;
+           // this.showscore = true;
+            
             localStorage.setItem("score", this.score); 
+        },
+        minusScore(){
+             this.score = localStorage.getItem("score");
+           // this.score = this.score - 1; 
+            //this.showscore = true;
+            localStorage.setItem("score", this.score);        
         },
         initializeScore(){
            this.score = 0;
